@@ -38,7 +38,7 @@ pipeline:
                     connectorRef: Docker_Registry
                     repo: docsbydeepak / node-app
                     tags:
-                      - new
+                      - latest
     - stage:
         name: Deploy
         identifier: Deploy

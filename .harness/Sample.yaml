@@ -71,14 +71,30 @@ pipeline:
                           type: Values
                           spec:
                             store:
-                              type: Github
+                              type: Inline
                               spec:
-                                connectorRef: account.Github_OAuth_1689838783895
-                                gitFetchType: Branch
-                                paths:
-                                  - deployment
-                                repoName: https://github.com/deepz-here/harness-ci-example
-                                branch: main
+                                content: |-
+                                  apiVersion: apps/v1
+                                  kind: Deployment
+                                  metadata:
+                                   labels:
+                                     app: hello-app
+                                   name: hello-app
+                                  spec:
+                                   replicas: 2
+                                   selector:
+                                     matchLabels:
+                                       app: hello-app
+                                   template:
+                                     metadata:
+                                       labels:
+                                         app: hello-app
+                                     spec:
+                                       containers:
+                                       - image: pavansa/node-hello-world-example:latest
+                                         name: hello-app
+                                         ports:
+                                         - containerPort: 3007
                   timeout: 10m
               - step:
                   name: Rollout Deployment

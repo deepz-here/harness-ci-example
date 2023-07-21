@@ -4,12 +4,6 @@ pipeline:
   projectIdentifier: Demo
   orgIdentifier: default
   tags: {}
-  properties:
-    ci:
-      codebase:
-        connectorRef: account.Github_OAuth_1689838783895
-        repoName: https://github.com/deepz-here/harness-ci-example
-        build: <+input>
   stages:
     - stage:
         name: Build and Test
@@ -28,13 +22,14 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Run_1
-                  identifier: Run_1
+                  name: Test
+                  identifier: Test
                   spec:
                     connectorRef: Docker_Registry
                     image: node
                     shell: Sh
                     command: npm test
+                    privileged: false
               - step:
                   type: BuildAndPushDockerRegistry
                   name: BuildAndPushDockerRegistry_1
@@ -85,3 +80,9 @@ pipeline:
                 type: StageRollback
   delegateSelectors:
     - docker-delegate
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github_OAuth_1689838783895
+        repoName: deepz-here/harness-ci-example
+        build: <+input>

@@ -56,47 +56,6 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: K8sApply
-                  name: K8sApply_1
-                  identifier: K8sApply_1
-                  spec:
-                    filePaths:
-                      - deployment
-                    skipDryRun: false
-                    skipSteadyStateCheck: false
-                    skipRendering: false
-                    overrides:
-                      - manifest:
-                          identifier: deployment
-                          type: Values
-                          spec:
-                            store:
-                              type: Inline
-                              spec:
-                                content: |-
-                                  apiVersion: apps/v1
-                                  kind: Deployment
-                                  metadata:
-                                   labels:
-                                     app: hello-app
-                                   name: hello-app
-                                  spec:
-                                   replicas: 2
-                                   selector:
-                                     matchLabels:
-                                       app: hello-app
-                                   template:
-                                     metadata:
-                                       labels:
-                                         app: hello-app
-                                     spec:
-                                       containers:
-                                       - image: pavansa/node-hello-world-example:latest
-                                         name: hello-app
-                                         ports:
-                                         - containerPort: 3007
-                  timeout: 10m
-              - step:
                   name: Rollout Deployment
                   identifier: rolloutDeployment
                   type: K8sRollingDeploy

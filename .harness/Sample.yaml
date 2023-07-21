@@ -56,6 +56,31 @@ pipeline:
           execution:
             steps:
               - step:
+                  type: K8sApply
+                  name: K8sApply_1
+                  identifier: K8sApply_1
+                  spec:
+                    filePaths:
+                      - deployment
+                    skipDryRun: false
+                    skipSteadyStateCheck: false
+                    skipRendering: false
+                    overrides:
+                      - manifest:
+                          identifier: deployment
+                          type: Values
+                          spec:
+                            store:
+                              type: Github
+                              spec:
+                                connectorRef: account.Github_OAuth_1689838783895
+                                gitFetchType: Branch
+                                paths:
+                                  - deployment
+                                repoName: https://github.com/deepz-here/harness-ci-example
+                                branch: main
+                  timeout: 10m
+              - step:
                   name: Rollout Deployment
                   identifier: rolloutDeployment
                   type: K8sRollingDeploy

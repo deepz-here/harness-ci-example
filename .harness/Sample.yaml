@@ -36,7 +36,7 @@ pipeline:
                   identifier: BuildAndPushDockerRegistry_1
                   spec:
                     connectorRef: Docker_Registry
-                    repo: docsbydeepak / node-app
+                    repo: docsbydeepak/node-app
                     tags:
                       - latest
     - stage:

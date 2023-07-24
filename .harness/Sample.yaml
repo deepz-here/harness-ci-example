@@ -28,7 +28,9 @@ pipeline:
                     connectorRef: Docker_Registry
                     image: node
                     shell: Sh
-                    command: npm test
+                    command: |-
+                      npm test
+                      ech "Hello World"
                     privileged: false
               - step:
                   type: BuildAndPushDockerRegistry
